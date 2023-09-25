@@ -1,0 +1,38 @@
+{
+  "Connessione": {
+    "SSID": "TP-Link_B462",
+    "Password": "91417558",
+    "Indirizzo_IP": "197.103.0.110"
+  },
+  "Influx_dati": {
+    "Measurement": "Estensimetro",
+    "Tag_1": "Lato",
+    "Tag_2": "Numero_astuccio",
+    "Field": "Strain_nm"
+  },
+  "Influx_connessione": {
+    "Bucket": "Estensimetro",
+    "Org": "Danieli",
+    "Token": "12345"
+  },
+  "Estensimetri": [
+    {
+      "Estensimetro_1": {
+        "d_out": 16,
+        "pd_sck": 4
+      }
+    },
+    {
+      "Estensimetro_2": {
+        "d_out": 22,
+        "pd_sck": 23
+      }
+    }
+  ],
+  "Dati_partenza": {
+    "Gain": "130/13600",
+    "Gauge_factor": 2.5444,
+    "Va": 4.1,
+    "Zero": 170
+  }
+}
