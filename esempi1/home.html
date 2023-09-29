@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>GATE96 WIFI Remote Control</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="w3.css">
+  </head>
+  <body>
+    <div class="w3-container w3-green">
+      <h1>GATE96 WIFI Remote Control</h1>
+    </div>
+    <div class="w3-container w3-cell w3-mobile w3-center">
+      <p><button onclick="set_cmnd('open')" class="w3-btn w3-round-xlarge w3-gray" id="btn_open">APRI</button></p>
+      <p><button class="w3-circle w3-round-xlarge 3-sand" id="circle_opened">A</button></p>
+    </div>
+    <div class="w3-container w3-cell w3-mobile w3-center">
+      <p><button onclick="set_cmnd('stop')" class="w3-btn w3-round-xlarge w3-red">STOP</button></p>
+      <p><button class="w3-circle w3-round-xlarge 3-sand" id="circle_safety">S</button></p>
+    </div>
+    <div class="w3-container w3-cell w3-mobile w3-center">
+      <p><button onclick="set_cmnd('close')"  class="w3-btn w3-round-xlarge w3-gray" id="btn_close">CHIUDI</button></p>
+      <p><button class="w3-circle w3-round-xlarge 3-sand" id="circle_closed">C</button></p>
+    </div>
+    <div class="w3-container">
+      <h5 id="time"> time </h5>
+      <h5 id="timer_out_period"> timer out </h5>
+    </div>
+    <script language="jscript">
+      function set_cmnd(command_name) {
+        ret = fetch(command_name);
+        return;
+        }
+
+      function get_values() {
+        fetch('get_values')
+          .then(response => response.json())
+          .then(result => update_values(result));
+        return;
+        }
+  
+      function update_values(result){
+        //alert(JSON.stringify(result))
+        //alert(result.mode)
+        const btn_class = [
+        "w3-btn w3-round-xlarge w3-gray",
+        "w3-btn w3-round-xlarge w3-green"
+        ]
+        const circle_class = [
+        "w3-circle w3-round-xlarge w3-green",
+        "w3-circle w3-round-xlarge w3-gray"
+        ]
+        document.getElementById('time').innerHTML = 'Time: ' + result.time
+        document.getElementById('timer_out_period').innerHTML = 'Time out: ' + result.timer_out_period + ' mSec.'
+        document.getElementById('btn_open').className = btn_class[1*result.out_open]
+        document.getElementById('btn_close').className = btn_class[1*result.out_close]
+        document.getElementById('circle_opened').className = circle_class[1*result.ls_opened]
+        document.getElementById('circle_closed').className = circle_class[1*result.ls_closed]
+        document.getElementById('circle_safety').className = circle_class[1*result.ls_safety]
+        setTimeout(get_values, 1000); 
+      }
+      
+      window.onload = function() {get_values()};
+    </script>
+    </body>
+</html>
